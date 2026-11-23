@@ -20,6 +20,7 @@ Live in a minute or two at https://chrisgrigg.github.io/own-patch/
 ## Files
 
 - `index.html` — the page (both the Home and Free video audit views)
+- `chris-grigg.jpg` — About section photo
 - `support.js`, `image-slot.js` — page runtime
 - `vendor/` — React 18.3.1 served locally (same files the runtime would fetch from unpkg)
 - `_ds/` — design-system styles
