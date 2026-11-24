@@ -358,25 +358,39 @@ a:hover{color:var(--color-accent-700)}
     <div style="display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px clamp(24px,5vw,72px);align-items:start">
       <div>
         <span style="display:block;font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 22px">Request your video</span>
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div role="status">
+          <h2 style="font-family:var(--font-heading);font-weight:800;font-size:32px;line-height:40px;letter-spacing:-0.015em;margin:0 0 18px">Got it. Your video is on its way.</h2>
+          <p style="font-size:17px;line-height:28px;margin:0;max-width:52ch">Thanks {{ firstName }}. I'll record your audit and email it to {{ sentTo }} within {{ turnaround }}. If your trade is already taken in your town, I'll tell you straight away.</p>
+          <p style="font-size:15px;line-height:24px;margin:18px 0 0">Anything to add? Ring Chris on <a href="tel:+447424059650" style="font-weight:600;white-space:nowrap">07424 059650</a>.</p>
+        </div>
+        </sc-if>
+        <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <div>
         <h2 style="font-family:var(--font-heading);font-weight:800;font-size:32px;line-height:40px;letter-spacing:-0.015em;margin:0 0 28px">Three fields. No card.</h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px">
-          <label class="field"><span>Your name</span><input class="input" type="text" placeholder="Dan Whitfield" /></label>
-          <label class="field"><span>Where to send the video</span><input class="input" type="email" placeholder="dan@whitfieldheating.co.uk" /></label>
+          <label class="field"><span>Your name</span><input class="input" type="text" name="name" autocomplete="name" placeholder="Dan Whitfield" value="{{ fName }}" onChange="{{ setName }}" /></label>
+          <label class="field"><span>Where to send the video</span><input class="input" type="email" name="email" autocomplete="email" placeholder="dan@whitfieldheating.co.uk" value="{{ fEmail }}" onChange="{{ setEmail }}" /></label>
           <label class="field" style="grid-column:1/-1"><span>Your Google Business Profile link — or just your business name and town</span><input class="input" type="text" placeholder="g.page/whitfield-heating — or “Whitfield Heating, Stroud”" value="{{ biz }}" onChange="{{ setBiz }}" /></label>
         </div>
         <div style="margin-top:28px">
           <span style="display:block;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 60%,transparent);margin-bottom:10px">What should we dig into hardest?</span>
           <div class="seg">
-            <label class="seg-opt"><input type="radio" name="focus" defaultChecked="{{ true }}" style="position:absolute;opacity:0" />Map pack ranking</label>
-            <label class="seg-opt"><input type="radio" name="focus" style="position:absolute;opacity:0" />Reviews</label>
-            <label class="seg-opt"><input type="radio" name="focus" style="position:absolute;opacity:0" />My competitors</label>
+            <label class="seg-opt"><input type="radio" name="focus" checked="{{ focus0 }}" onChange="{{ pick0 }}" style="position:absolute;opacity:0" />Map pack ranking</label>
+            <label class="seg-opt"><input type="radio" name="focus" checked="{{ focus1 }}" onChange="{{ pick1 }}" style="position:absolute;opacity:0" />Reviews</label>
+            <label class="seg-opt"><input type="radio" name="focus" checked="{{ focus2 }}" onChange="{{ pick2 }}" style="position:absolute;opacity:0" />My competitors</label>
           </div>
         </div>
         <div style="margin-top:28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-          <button type="button" class="btn btn-primary" style="min-height:44px">Send me my free video →</button>
+          <button type="button" class="btn btn-primary" style="min-height:44px" disabled="{{ sending }}" onClick="{{ send }}">{{ sendLabel }}</button>
           <span style="font-size:13px;color:color-mix(in srgb,var(--color-text) 70%,transparent)">No card, no call booked, no drip sequence.</span>
         </div>
+        <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+        <p role="alert" style="font-size:15px;line-height:24px;margin:18px 0 0;padding:12px 16px;border:2px solid var(--color-accent-700);color:var(--color-accent-800);background:var(--color-accent-100)">{{ formError }}</p>
+        </sc-if>
         <p style="font-size:15px;line-height:24px;margin:22px 0 0">Rather talk it through? Ring Chris on <a href="tel:+447424059650" style="font-weight:600;white-space:nowrap">07424 059650</a>.</p>
+        </div>
+        </sc-if>
       </div>
       <div style="border:2px solid var(--color-divider);padding:28px">
         <p style="font-family:var(--font-heading);font-weight:800;font-size:15px;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 20px">What lands in your inbox</p>
@@ -429,7 +443,7 @@ a:hover{color:var(--color-accent-700)}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;page&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Home&quot;,&quot;Audit&quot;],&quot;default&quot;:&quot;Home&quot;,&quot;tsType&quot;:&quot;'Home' | 'Audit'&quot;,&quot;section&quot;:&quot;Mockup&quot;},&quot;turnaroundHours&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:48,&quot;min&quot;:12,&quot;max&quot;:168,&quot;step&quot;:12,&quot;unit&quot;:&quot;hrs&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Offer&quot;},&quot;showBundle&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Offer&quot;}}">
 class Component extends DCLogic {
-  state = { page: null, biz: "", ticks: [false, false, false, false, false] };
+  state = { page: null, biz: "", fName: "", fEmail: "", focus: 0, sending: false, sent: false, formError: "", ticks: [false, false, false, false, false] };
 
   get page() { return this.state.page ?? (this.props.page || "Home"); }
 
@@ -439,6 +453,28 @@ class Component extends DCLogic {
         const el = document.getElementById(anchor);
         if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: "smooth" });
       } else window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  send() {
+    if (this.state.sending) return;
+    const name = this.state.fName.trim(), email = this.state.fEmail.trim(), biz = this.state.biz.trim();
+    const focus = ["Map pack ranking", "Reviews", "My competitors"][this.state.focus];
+    let formError = "";
+    if (!name) formError = "Please add your name.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) formError = "Please add an email address so I know where to send the video.";
+    else if (!biz) formError = "Please add your business name and town, or your Google Business Profile link.";
+    if (formError) { this.setState({ formError }); return; }
+    this.setState({ sending: true, formError: "" });
+    fetch("https://formspree.io/f/xkjrkqpo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ name, email, business: biz, focus, _subject: "Free video audit request: " + biz })
+    }).then((r) => {
+      if (!r.ok) throw new Error("send failed");
+      this.setState({ sending: false, sent: true });
+    }).catch(() => {
+      this.setState({ sending: false, formError: "Sorry, that did not send. Please try again, or ring Chris on 07424 059650." });
     });
   }
 
@@ -485,6 +521,16 @@ class Component extends DCLogic {
       goAudit: () => this.go("Audit"),
       goBook: () => this.go("Audit", "book"),
       biz: this.state.biz,
+      fName: this.state.fName, fEmail: this.state.fEmail,
+      setName: (e) => this.setState({ fName: e.target.value }),
+      setEmail: (e) => this.setState({ fEmail: e.target.value }),
+      focus0: this.state.focus === 0, focus1: this.state.focus === 1, focus2: this.state.focus === 2,
+      pick0: () => this.setState({ focus: 0 }), pick1: () => this.setState({ focus: 1 }), pick2: () => this.setState({ focus: 2 }),
+      send: () => this.send(),
+      sending: this.state.sending, sendLabel: this.state.sending ? "Sending…" : "Send me my free video →",
+      sent: this.state.sent, notSent: !this.state.sent,
+      hasError: !!this.state.formError, formError: this.state.formError,
+      firstName: this.state.fName.trim().split(/\s+/)[0], sentTo: this.state.fEmail.trim(),
       setBiz: (e) => this.setState({ biz: e.target.value }),
       bizKey: (e) => { if (e.key === "Enter") this.go("Audit", "book"); },
       goCheck: () => this.go("Audit", "self-check"),
