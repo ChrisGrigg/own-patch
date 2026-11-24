@@ -27,9 +27,10 @@ a:hover{color:var(--color-accent-700)}
 
 <nav class="nav" style="padding:14px clamp(20px,5vw,72px);position:sticky;top:0;background:var(--band-white);border-bottom:1px solid color-mix(in srgb,var(--color-text) 12%,transparent);z-index:5">
   <span class="nav-brand" style="margin-right:auto;display:flex;align-items:baseline;gap:10px">Own Patch<span style="font-family:var(--font-body);font-weight:400;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 60%,transparent)">ownpatch.co.uk</span></span>
-  <div style="display:flex;align-items:center;gap:18px">
+  <div style="display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px 18px">
     <button type="button" class="btn btn-ghost" style="font-size:13px;letter-spacing:0.04em;text-transform:uppercase;color:{{ homeInk }}" onClick="{{ goHome }}">Home</button>
     <button type="button" class="btn btn-ghost" style="font-size:13px;letter-spacing:0.04em;text-transform:uppercase;color:var(--color-text)" onClick="{{ goPricing }}">Pricing</button>
+    <a href="tel:+447424059650" style="font-family:var(--font-heading);font-weight:800;font-size:15px;white-space:nowrap;color:var(--color-text);text-decoration:none;font-feature-settings:'tnum' 1">07424 059650</a>
     <button type="button" class="btn btn-primary" onClick="{{ goBook }}">Get my free video audit</button>
   </div>
 </nav>
@@ -44,9 +45,13 @@ a:hover{color:var(--color-accent-700)}
       <span style="display:block">on Google Maps.</span>
     </h1>
     <p style="font-size:17px;line-height:28px;max-width:56ch;margin:36px auto 0">We get small local businesses into the Google Maps three-pack for the searches that end in a phone call. One trade, one town, one plan — starting with a free five-minute video where we open your Google Business Profile on screen and show you exactly what is holding you back.</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:28px">
-      <button type="button" class="btn btn-primary" onClick="{{ goBook }}">Get my free video audit</button>
-      <button type="button" class="btn btn-secondary" onClick="{{ goCheck }}">Run the free 5-point check</button>
+    <div style="max-width:640px;margin:32px auto 0;text-align:left">
+      <label for="hero-biz" style="display:block;font-size:13px;line-height:18px;letter-spacing:0.04em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 75%,transparent);margin:0 0 8px">Your business name and town — or your Google profile link</label>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <input id="hero-biz" class="input" type="text" placeholder="Whitfield Heating, Stroud" value="{{ biz }}" onChange="{{ setBiz }}" onKeyDown="{{ bizKey }}" style="flex:1 1 260px;min-width:0;min-height:44px;background:var(--band-white)" />
+        <button type="button" class="btn btn-primary" style="min-height:44px" onClick="{{ goBook }}">Get my free video audit</button>
+      </div>
+      <p style="font-size:13px;line-height:20px;margin:10px 0 0;color:color-mix(in srgb,var(--color-text) 75%,transparent)">Free. No card, no call booked. Or <button type="button" onClick="{{ goCheck }}" style="font:inherit;color:var(--color-accent-700);background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer">run the free 5-point check</button> first, or ring Chris on <a href="tel:+447424059650" style="white-space:nowrap">07424 059650</a>.</p>
     </div>
     <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:36px;text-align:left">
       <img src="chris-grigg.jpg" alt="Chris Grigg" width="56" height="56" style="flex:none;width:56px;height:56px;border-radius:999px;object-fit:cover;border:2px solid var(--band-white);box-shadow:0 2px 8px rgba(0,0,0,0.15)">
@@ -112,47 +117,30 @@ a:hover{color:var(--color-accent-700)}
 
   <div style="background:var(--band-white)">
   <section style="max-width:1200px;margin:0 auto;padding:84px clamp(20px,5vw,72px) 70px">
-    <div style="display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px clamp(24px,5vw,72px);align-items:start;margin-bottom:52px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px clamp(24px,5vw,72px);align-items:start;margin-bottom:44px">
       <div>
-        <span style="display:block;font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 18px">GEO &amp; AEO — included as standard</span>
-        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.12;letter-spacing:-0.015em;margin:0">Half your customers now ask a machine, not a search box</h2>
+        <span style="display:block;font-size:13px;line-height:14px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 18px">AI search — included as standard</span>
+        <h2 style="font-family:var(--font-heading);font-weight:800;font-size:clamp(28px,3.2vw,40px);line-height:1.12;letter-spacing:-0.015em;margin:0">More and more customers ask ChatGPT who to call</h2>
       </div>
-      <p style="font-size:15.5px;line-height:28px;margin:0;max-width:56ch;color:color-mix(in srgb,var(--color-text) 78%,transparent)">People type “best boiler engineer near me” into ChatGPT, ask Siri, or read Google's AI Overview and never scroll to the results. Those answers are assembled from a handful of sources the machine trusts. Getting your business into that handful is a different job from ranking — and it is one most local agencies are not doing yet.</p>
+      <p style="font-size:15.5px;line-height:28px;margin:0;max-width:56ch;color:color-mix(in srgb,var(--color-text) 78%,transparent)">People ask ChatGPT, Siri or Google's AI Overview for “the best boiler engineer near me” and get one to three names back. We make sure yours is one of them. The trade calls it GEO and AEO; it is part of every package.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 clamp(24px,4vw,72px);border-top:2px solid var(--color-divider)">
-      <div style="padding:36px 0;border-bottom:1px solid var(--color-divider)">
-        <p style="font-family:var(--font-heading);font-weight:800;font-size:clamp(30px,3vw,40px);line-height:1.1;color:var(--color-accent);margin:0 0 0 -0.045em">GEO</p>
-        <p style="font-family:var(--font-heading);font-weight:800;font-size:17px;line-height:26px;margin:14px 0 0">Generative Engine Optimisation</p>
-        <p style="font-size:15.5px;line-height:26px;margin:12px 0 0;max-width:44ch;color:color-mix(in srgb,var(--color-text) 78%,transparent)">Being the business ChatGPT, Gemini, Copilot and Google's AI Overview name when someone asks who to call in your town. That means consistent facts about you everywhere the models read — your profile, your site, directories, reviews — so they can repeat them with confidence.</p>
-      </div>
-      <div style="padding:36px 0;border-bottom:1px solid var(--color-divider)">
-        <p style="font-family:var(--font-heading);font-weight:800;font-size:clamp(30px,3vw,40px);line-height:1.1;color:var(--color-accent);margin:0 0 0 -0.045em">AEO</p>
-        <p style="font-family:var(--font-heading);font-weight:800;font-size:17px;line-height:26px;margin:14px 0 0">Answer Engine Optimisation</p>
-        <p style="font-size:15.5px;line-height:26px;margin:12px 0 0;max-width:44ch;color:color-mix(in srgb,var(--color-text) 78%,transparent)">Writing the plain answers to the questions people actually ask — what a new boiler costs in your area, whether you work weekends, how fast you can get there — and marking them up so an assistant can lift them cleanly. Answer the question and you get quoted; bury it in a brochure page and you do not.</p>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px clamp(24px,4vw,72px);margin-top:44px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px clamp(24px,4vw,72px);border-top:2px solid var(--color-divider);padding-top:36px">
       <div>
         <p style="font-family:var(--font-heading);font-weight:800;font-size:17px;line-height:26px;margin:0">You get named, not ranked</p>
-        <p style="font-size:15px;line-height:26px;margin:10px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">An assistant hands over one to three names. Being the recommendation is worth more than being the fourth blue link.</p>
+        <p style="font-size:15px;line-height:26px;margin:10px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">An assistant hands over a few names, not a page of results. Being the recommendation beats being the fourth link.</p>
       </div>
       <div>
-        <p style="font-family:var(--font-heading);font-weight:800;font-size:17px;line-height:26px;margin:0">The traffic that does arrive is ready</p>
-        <p style="font-size:15px;line-height:26px;margin:10px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">Someone who calls after an assistant vouched for you has already had their questions answered. They ring to book, not to browse.</p>
-      </div>
-      <div>
-        <p style="font-family:var(--font-heading);font-weight:800;font-size:17px;line-height:26px;margin:0">It is the same groundwork</p>
-        <p style="font-size:15px;line-height:26px;margin:10px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">Accurate profile, recent reviews, real town pages, clean structured data. The work that wins the map pack is the work the models read — so you are not paying twice.</p>
+        <p style="font-family:var(--font-heading);font-weight:800;font-size:17px;line-height:26px;margin:0">Same work, no extra cost</p>
+        <p style="font-size:15px;line-height:26px;margin:10px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">An accurate profile, recent reviews and a page per town win the map pack, and they are what the AI reads too.</p>
       </div>
       <div>
         <p style="font-family:var(--font-heading);font-weight:800;font-size:17px;line-height:26px;margin:0">Early is cheap</p>
-        <p style="font-size:15px;line-height:26px;margin:10px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">Almost nobody on your patch is doing this yet. The businesses the models learn first are the ones they keep naming.</p>
+        <p style="font-size:15px;line-height:26px;margin:10px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">Almost nobody on your patch is doing this yet. The businesses the AI learns first are the ones it keeps naming.</p>
       </div>
     </div>
 
-    <p style="font-size:15.5px;line-height:28px;margin:44px 0 0;max-width:60ch">Your free video shows what ChatGPT and Google's AI Overview say today when someone asks for your trade in your town — and whether your name comes up at all.</p>
+    <p style="font-size:15.5px;line-height:28px;margin:40px 0 0;max-width:60ch">Your free video shows what ChatGPT and Google say today when someone asks for your trade in your town.</p>
     <div style="margin-top:22px"><button type="button" class="btn btn-secondary" onClick="{{ goAudit }}">See what the AI answers say about you</button></div>
   </section>
   </div>
@@ -332,7 +320,7 @@ a:hover{color:var(--color-accent-700)}
           <td><span class="tag tag-neutral">Medium</span></td>
         </tr>
         <tr>
-          <td style="font-family:var(--font-heading);font-weight:800">AI answers (GEO &amp; AEO)</td>
+          <td style="font-family:var(--font-heading);font-weight:800">AI answers</td>
           <td style="color:color-mix(in srgb,var(--color-text) 78%,transparent)">Who ChatGPT and Google's AI Overview name for your trade in your town, whether your facts agree across sources, and the questions you have left unanswered</td>
           <td style="font-feature-settings:'tnum' 1">4</td>
           <td><span class="tag tag-accent">Growing</span></td>
@@ -374,7 +362,7 @@ a:hover{color:var(--color-accent-700)}
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px">
           <label class="field"><span>Your name</span><input class="input" type="text" placeholder="Dan Whitfield" /></label>
           <label class="field"><span>Where to send the video</span><input class="input" type="email" placeholder="dan@whitfieldheating.co.uk" /></label>
-          <label class="field" style="grid-column:1/-1"><span>Your Google Business Profile link — or just your business name and town</span><input class="input" type="text" placeholder="g.page/whitfield-heating — or “Whitfield Heating, Stroud”" /></label>
+          <label class="field" style="grid-column:1/-1"><span>Your Google Business Profile link — or just your business name and town</span><input class="input" type="text" placeholder="g.page/whitfield-heating — or “Whitfield Heating, Stroud”" value="{{ biz }}" onChange="{{ setBiz }}" /></label>
         </div>
         <div style="margin-top:28px">
           <span style="display:block;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 60%,transparent);margin-bottom:10px">What should we dig into hardest?</span>
@@ -388,6 +376,7 @@ a:hover{color:var(--color-accent-700)}
           <button type="button" class="btn btn-primary" style="min-height:44px">Send me my free video →</button>
           <span style="font-size:13px;color:color-mix(in srgb,var(--color-text) 70%,transparent)">No card, no call booked, no drip sequence.</span>
         </div>
+        <p style="font-size:15px;line-height:24px;margin:22px 0 0">Rather talk it through? Ring Chris on <a href="tel:+447424059650" style="font-weight:600;white-space:nowrap">07424 059650</a>.</p>
       </div>
       <div style="border:2px solid var(--color-divider);padding:28px">
         <p style="font-family:var(--font-heading);font-weight:800;font-size:15px;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 20px">What lands in your inbox</p>
@@ -430,7 +419,7 @@ a:hover{color:var(--color-accent-700)}
 
 <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
   <footer style="padding:56px 0;font-size:13px;line-height:28px;color:color-mix(in srgb,var(--color-text) 70%,transparent);display:flex;gap:28px;flex-wrap:wrap;justify-content:space-between">
-    <span>Own Patch — ownpatch.co.uk · Local SEO for small business across the South West</span>
+    <span>Own Patch — ownpatch.co.uk · Local SEO for small business across the UK · <a href="tel:+447424059650">07424 059650</a></span>
     <span><a href="https://reviewsproai.com" target="_blank" rel="noopener">Reviews Pro AI</a> automated review management included with every package · Privacy · Terms</span>
   </footer>
 </div>
@@ -440,7 +429,7 @@ a:hover{color:var(--color-accent-700)}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;page&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Home&quot;,&quot;Audit&quot;],&quot;default&quot;:&quot;Home&quot;,&quot;tsType&quot;:&quot;'Home' | 'Audit'&quot;,&quot;section&quot;:&quot;Mockup&quot;},&quot;turnaroundHours&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:48,&quot;min&quot;:12,&quot;max&quot;:168,&quot;step&quot;:12,&quot;unit&quot;:&quot;hrs&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Offer&quot;},&quot;showBundle&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Offer&quot;}}">
 class Component extends DCLogic {
-  state = { page: null, ticks: [false, false, false, false, false] };
+  state = { page: null, biz: "", ticks: [false, false, false, false, false] };
 
   get page() { return this.state.page ?? (this.props.page || "Home"); }
 
@@ -495,6 +484,9 @@ class Component extends DCLogic {
       goPricing: () => this.go("Home", "pricing"),
       goAudit: () => this.go("Audit"),
       goBook: () => this.go("Audit", "book"),
+      biz: this.state.biz,
+      setBiz: (e) => this.setState({ biz: e.target.value }),
+      bizKey: (e) => { if (e.key === "Enter") this.go("Audit", "book"); },
       goCheck: () => this.go("Audit", "self-check"),
       checks, score, verdict: verdicts[score],
       showBundle: this.props.showBundle ?? true
